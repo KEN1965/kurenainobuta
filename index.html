@@ -1,1 +1,83 @@
 
+<!-- Copyright (c) 2023 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+<a-scene
+  xrextras-loading
+  xrextras-runtime-error
+  hand-coaching-overlay
+  renderer="colorManagement: true"
+  landing-page
+  xrhand="allowedDevices:any">
+  <a-assets>
+    <a-asset-item
+      id="myModel"
+      src="assets/kurenainobuta.glb"
+      response-type="arraybuffer"></a-asset-item>
+    <audio id="engineSound" src="assets/plane_motor_01.mp3" preload="auto"></audio>
+  </a-assets>
+
+  <a-camera position="0 2 0"> </a-camera>
+  <a-light type="ambient" intensity="1.5"></a-light>
+
+<xrextras-hand-anchor id="hand">
+  <xrextras-hand-attachment point="wrist"> 
+    <a-entity 
+      id="airplane-container" 
+      hover-on-palm="floatHeight: 0.1; wristOffset: 0.05">
+      
+      <a-gltf-model 
+        id="airplane" 
+        src="#myModel" 
+        scale="0.12 0.12 0.12"
+        position="0 0.15 0.02"
+        rotation="90 0 0">
+      </a-gltf-model>
+
+      <a-sound
+        id="engineSoundEntity"
+        src="#engineSound"
+        autoplay="false" 
+        loop="true"
+        volume="0.6">
+      </a-sound>
+
+    </a-entity>
+  </xrextras-hand-attachment>
+</xrextras-hand-anchor>
+</a-scene>
+</xrextras-hand-attachment>
+
+<div
+  id="overlay"
+  style="
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    -webkit-backdrop-filter: blur(15px) !important;
+    backdrop-filter: blur(15px) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999 !important;
+    pointer-events: auto;
+    transition: opacity 0.6s ease;
+  ">
+  <button
+    id="start-button"
+    style="
+      padding: 20px 40px;
+      font-size: 24px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(45deg, #ff512f, #dd2476);
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      cursor: pointer;
+    ">
+    エンジン始動！
+  </button>
+</div>
